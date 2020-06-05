@@ -50,7 +50,6 @@ public class Application {
         for (File file : xmlFiles) {
             try {
 
-                //this.metadataSearchIndex.emptySolr();
                 System.out.println("The indexed XML Document: " + file.getName());
                 Metadata metadata = this.metadataRepository.get(file.getAbsolutePath());
                 this.metadataSearchIndex.indexMetadata(metadata);

@@ -2,10 +2,7 @@ package edu.ucar.cisl.xmlparsing.model;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
