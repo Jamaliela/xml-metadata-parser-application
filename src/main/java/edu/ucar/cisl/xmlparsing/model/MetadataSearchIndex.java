@@ -1,19 +1,20 @@
 package edu.ucar.cisl.xmlparsing.model;
 
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
-import org.apache.solr.client.solrj.impl.XMLResponseParser;
 import org.apache.solr.common.SolrInputDocument;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+@Component
 public class MetadataSearchIndex {
 
-    private HttpSolrClient solrClient;
+    private SolrClient solrClient;
 
-    public MetadataSearchIndex(HttpSolrClient solrClient) {
+    public MetadataSearchIndex(SolrClient solrClient) {
 
         this.solrClient = solrClient;
     }
@@ -23,19 +24,6 @@ public class MetadataSearchIndex {
         try {
 
             tryIndexMetadata(metadata);
-
-        } catch (Exception e){
-
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void emptySolr() {
-
-        try {
-
-            tryEmptySolr();
-
 
         } catch (Exception e){
 
@@ -73,11 +61,6 @@ public class MetadataSearchIndex {
         return authorNames;
     }
 
-    private void tryEmptySolr() throws IOException, SolrServerException {
-
-        this.solrClient.deleteByQuery("*");
-        this.solrClient.commit();
-    }
     private void tryIndexMetadata(Metadata metadata) throws IOException, SolrServerException {
 
         SolrInputDocument document = new SolrInputDocument();
