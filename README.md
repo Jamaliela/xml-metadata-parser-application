@@ -2,7 +2,7 @@
 
 ## Purpose
 
-XML metadata parser is an spring boot application that parses external XML files and indexes the metadata needed to a Solr instance. 
+The XML metadata parser is a [Spring Boot](https://spring.io/projects/spring-boot) application that parses external ISO Metadata XML files and then indexes that metadata into a Solr index. 
 
 ## Before Running
 
