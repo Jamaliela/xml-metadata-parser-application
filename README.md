@@ -19,9 +19,10 @@ For more information on how to set up your vagrant follow this GitHub [repositor
 The application properties file (src/main/resources/application.properties) contains the spring.data.solr.host,and the xml.directory constants that should be changed before running. The constant spring.data.solr.host is the Solr URL path and xml.directory can is the path that stores your XML files which can be a GitHub repository.
 
 Config File Examples:
-
+```
 spring.data.solr.host= http://localhost:8983/solr/<core name>
 xml.directory= <path to a cloned GitHub repository>
+```
 
 ## Clearing Solr 
 
