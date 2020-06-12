@@ -24,13 +24,12 @@ xml.directory= <path to a cloned GitHub repository>
 
 ## To Build and Run XML Metadata Parser
 In order to run a self-executable JAR file you will need to:
-- add the plugin that can create executable archives (jar files and war files) which contain all of an application’s dependencies and can then be run with ```java -jar```.
-You can find the build plugin [here](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/reference/html/#repackage)
+- add the maven plugin that can create executable archives. You can find the build plugin [here](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/reference/html/#repackage)
 - You need to have maven installed and run
   ```
   clean install spring-boot:repackage
   ```
-- After running the repackage target file gets created with the self-executable jar file. Now, you can run the jar file separately from command line in the target folder with:
+- Now, you can run the jar file separately from command line in the target folder with:
   ```
   java -Dspring.config.location=file://<path to properties file> -jar <jar file to be executed>
   ```
