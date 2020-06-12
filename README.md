@@ -1,7 +1,5 @@
 # sage-siparcs-xml-metadata-parser
 
-## Purpose
-
 The XML metadata parser is a [Spring Boot](https://spring.io/projects/spring-boot) application that parses external ISO Metadata XML files and then indexes that metadata into a Solr index. 
 
 ## Before Running
