@@ -32,6 +32,10 @@ public class Metadata {
     @XmlPath("gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString/text()")
     private String keywords;
 
+    @Field("resource_type")
+    @XmlPath("gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:dateType/gmd:CI_DateTypeCode/text()")
+    private String resourceType;
+
     @Field("bounding_box")
     @XmlPath("gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:westBoundLongitude/gco:Decimal/text()")
     private Collection<Integer> boundingBox = new ArrayList<>();
@@ -81,6 +85,14 @@ public class Metadata {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+
+    public String getResourceType() {
+        return resourceType;
+    }
+
+    public void setResourceType(String resourceType) {
+        this.resourceType = resourceType;
     }
 
     public Collection<Integer> getBoundingBox() {

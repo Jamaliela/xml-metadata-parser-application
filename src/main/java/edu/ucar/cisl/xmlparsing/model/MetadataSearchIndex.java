@@ -82,6 +82,11 @@ public class MetadataSearchIndex {
             document.addField("keywords", metadata.getKeywords());
 
         }
+        if (metadata.getResourceType() != null) {
+
+            document.addField("resource_type", metadata.getResourceType());
+
+        }
         //document.addField("BoundingBox: ", metadata.getBoundingBox());
         for (String author : getAuthorNames(metadata.getCitedResponsibleParties())) {
 
