@@ -21,7 +21,7 @@ public class Metadata {
     private String title;
 
     @Field("description")
-    @XmlPath("gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:description/gco:CharacterString/text()")
+    @XmlPath("gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString/text()")
     private String description;
 
     @Field("doi")
