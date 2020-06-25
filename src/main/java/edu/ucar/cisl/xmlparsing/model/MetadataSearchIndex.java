@@ -12,11 +12,13 @@ import java.util.stream.Collectors;
 @Component
 public class MetadataSearchIndex {
 
+    private MetadataTranslator metadataTranslator;
     private SolrClient solrClient;
 
-    public MetadataSearchIndex(SolrClient solrClient) {
+    public MetadataSearchIndex(SolrClient solrClient, MetadataTranslator metadataTranslator) {
 
         this.solrClient = solrClient;
+        this.metadataTranslator = metadataTranslator;
     }
 
     public void indexMetadata(Metadata metadata) {
@@ -67,25 +69,25 @@ public class MetadataSearchIndex {
         document.addField("id", metadata.getFileIdentifier());
         if (metadata.getTitle() != null) {
 
-            document.addField("title", metadata.getTitle());
+            document.addField("title", metadata.getTitle().trim());
         }
         if (metadata.getDescription() != null) {
 
-            document.addField("description", metadata.getDescription());
+            document.addField("description", metadata.getDescription().trim());
         }
         if (metadata.getDoi() != null) {
 
-            document.addField("doi", metadata.getDoi());
+            document.addField("doi", metadata.getDoi().trim());
         }
         if (metadata.getKeywords() != null) {
 
-            document.addField("keywords", metadata.getKeywords());
+            document.addField("keywords", metadata.getKeywords().trim());
 
         }
         if (metadata.getResourceType() != null) {
 
-            document.addField("resource_type", metadata.getResourceType());
-
+            String resourceType = this.metadataTranslator.translator(metadata.getResourceType().trim());
+            document.addField("resource_type", resourceType);
         }
         //document.addField("BoundingBox: ", metadata.getBoundingBox());
         for (String author : getAuthorNames(metadata.getCitedResponsibleParties())) {
@@ -96,9 +98,9 @@ public class MetadataSearchIndex {
 
             document.addField("author_emails", email);
         }
-        document.addField("authoritative_source_url", metadata.getDoi());
-        document.addField("authoritative_source_location_on_disk", metadata.getDiskLocation());
-        document.addField("authoritative_source_md5", metadata.getMd5());
+        document.addField("authoritative_source_url", metadata.getDoi().trim());
+        document.addField("authoritative_source_location_on_disk", metadata.getDiskLocation().trim());
+        document.addField("authoritative_source_md5", metadata.getMd5().trim());
         this.solrClient.add(document);
         this.solrClient.commit();
     }

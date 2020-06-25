@@ -33,7 +33,7 @@ public class Metadata {
     private String keywords;
 
     @Field("resource_type")
-    @XmlPath("gmd:hierarchyLevel/gmd:MD_ScopeCode/text()")
+    @XmlPath("gmd:hierarchyLevel/gmd:MD_ScopeCode/@codeListValue")
     private String resourceType;
 
     @Field("bounding_box")
