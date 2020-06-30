@@ -7,7 +7,7 @@ jobs:
   build:
 
     docker:
-      - image: circleci/openjdk-8
+      - image: circleci/openjdk:8u151-jdk
 
     environment:
       MAVEN_OPTS: -Xmx3200m
