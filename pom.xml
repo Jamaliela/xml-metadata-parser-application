@@ -9,6 +9,19 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <distributionManagement>
+        <repository>
+            <id>archiva.ucar.edu</id>
+            <name>archiva.ucar.edu-releases</name>
+            <url>https://archiva.ucar.edu/repository/sage-app-release</url>
+        </repository>
+        <snapshotRepository>
+            <id>archiva.ucar.edu</id>
+            <name>archiva.ucar.edu-snapshots</name>
+            <url>https://archiva.ucar.edu/repository/sage-app-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <parent>
     <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
         <groupId>org.springframework.boot</groupId>
