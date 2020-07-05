@@ -3,6 +3,8 @@ package edu.ucar.cisl.xmlparsing.model;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -67,40 +69,24 @@ public class MetadataSearchIndex {
 
         SolrInputDocument document = new SolrInputDocument();
         document.addField("id", metadata.getFileIdentifier());
-        if (metadata.getTitle() != null) {
-
-            document.addField("title", metadata.getTitle().trim());
-        }
-        if (metadata.getDescription() != null) {
-
-            document.addField("description", metadata.getDescription().trim());
-        }
-        if (metadata.getDoi() != null) {
-
-            document.addField("doi", metadata.getDoi().trim());
-        }
-        if (metadata.getKeywords() != null) {
-
-            document.addField("keywords", metadata.getKeywords().trim());
-
-        }
-        if (metadata.getResourceType() != null) {
-
-            String resourceType = this.metadataTranslator.translator(metadata.getResourceType().trim());
-            document.addField("resource_type", resourceType);
-        }
+        document.addField("title", sanitizeInput(metadata.getTitle()));
+        document.addField("description", sanitizeInput(metadata.getDescription()));
+        document.addField("doi", sanitizeInput(metadata.getDoi()));
+        document.addField("keywords", sanitizeInput(metadata.getKeywords()));
+        String resourceType = this.metadataTranslator.translator(metadata.getResourceType().trim());
+        document.addField("resource_type", sanitizeInput(resourceType));
         //document.addField("BoundingBox: ", metadata.getBoundingBox());
         for (String author : getAuthorNames(metadata.getCitedResponsibleParties())) {
 
-            document.addField("authors", author);
+            document.addField("authors", sanitizeInput(author));
         }
         for (String email : getAuthorEmails(metadata.getCitedResponsibleParties()) ) {
 
-            document.addField("author_emails", email);
+            document.addField("author_emails", sanitizeInput(email));
         }
-        document.addField("authoritative_source_url", metadata.getDoi().trim());
-        document.addField("authoritative_source_location_on_disk", metadata.getDiskLocation().trim());
-        document.addField("authoritative_source_md5", metadata.getMd5().trim());
+        document.addField("authoritative_source_url", sanitizeInput(metadata.getDoi()));
+        document.addField("authoritative_source_location_on_disk", sanitizeInput(metadata.getDiskLocation()));
+        document.addField("authoritative_source_md5", sanitizeInput(metadata.getMd5()));
         this.solrClient.add(document);
         this.solrClient.commit();
     }
@@ -123,5 +109,15 @@ public class MetadataSearchIndex {
                 .map(rp -> rp.getElectronicMailAddress())
                 .collect(Collectors.toList());
         return authorEmails;
+    }
+
+    private String sanitizeInput(String input) {
+
+        if (input != null ) {
+
+            input = input.trim();
+            input = Jsoup.clean(input,Whitelist.simpleText());
+        }
+       return input;
     }
 }
