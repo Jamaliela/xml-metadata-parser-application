@@ -1,20 +1,21 @@
 package edu.ucar.cisl.xmlparsing.model;
 
-import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
 import java.util.Map;
 
-@Component
 public class MetadataTranslator {
 
-    public String translator(String resourceType) {
+    private Map<String, String> map;
 
-        Map<String, String> hashMap = new HashMap<>();
-        hashMap.put("document", "publication");
-        if (hashMap.containsKey(resourceType)) {
+    public MetadataTranslator(Map<String, String> map) {
 
-            return hashMap.get(resourceType);
+        this.map = map;
+    }
+
+    public String translate(String resourceType) {
+
+        if (this.map.containsKey(resourceType)) {
+
+            return this.map.get(resourceType);
         }
         else {
 

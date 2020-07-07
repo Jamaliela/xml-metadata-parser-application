@@ -1,6 +1,7 @@
 package edu.ucar.cisl.xmlparsing;
 
 import edu.ucar.cisl.xmlparsing.model.Metadata;
+import edu.ucar.cisl.xmlparsing.model.MetadataTranslator;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.solr.client.solrj.SolrClient;
@@ -13,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class ApplicationConfig {
@@ -36,6 +39,15 @@ public class ApplicationConfig {
     public IOFileFilter getIoFileFilter() {
 
         return new WildcardFileFilter("*.xml");
+    }
+
+    @Bean
+    public MetadataTranslator getMetadataTranslator() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("document", "publication");
+
+        return new MetadataTranslator(map);
     }
 
 }

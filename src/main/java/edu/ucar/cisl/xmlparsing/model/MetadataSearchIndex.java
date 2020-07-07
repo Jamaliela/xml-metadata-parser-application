@@ -73,7 +73,7 @@ public class MetadataSearchIndex {
         document.addField("description", sanitizeInput(metadata.getDescription()));
         document.addField("doi", sanitizeInput(metadata.getDoi()));
         document.addField("keywords", sanitizeInput(metadata.getKeywords()));
-        String resourceType = this.metadataTranslator.translator(metadata.getResourceType().trim());
+        String resourceType = this.metadataTranslator.translate(metadata.getResourceType().trim());
         document.addField("resource_type", sanitizeInput(resourceType));
         //document.addField("BoundingBox: ", metadata.getBoundingBox());
         for (String author : getAuthorNames(metadata.getCitedResponsibleParties())) {
@@ -111,12 +111,12 @@ public class MetadataSearchIndex {
         return authorEmails;
     }
 
-    private String sanitizeInput(String input) {
+    public String sanitizeInput(String input) {
 
         if (input != null ) {
 
             input = input.trim();
-            input = Jsoup.clean(input,Whitelist.simpleText());
+            input = Jsoup.clean(input,Whitelist.none());
         }
        return input;
     }
