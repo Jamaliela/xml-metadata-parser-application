@@ -45,24 +45,7 @@ CMD ["/usr/bin/java", "-jar", "-Dspring.config.additional-location=/usr/local/pr
 ```
 ### Docker Compose File
 
-The Docker compose file contains the details of the services that will be used to create a stack and docker config or docker secret if used. 
-
-docker-compose.yaml Example:
-```
-version: '3.8'
-
-services:
-  siparcs_harvester:
-    image: sage-siparcs-harvester  ##image-name
-    volumes:
-      - "<path-to-metadata-files>:/usr/local/metadata"
-    secrets:
-      - source: <docker-secret-file-name>
-        target: /usr/local/properties/application.properties
-secrets:
-  <docker-secret-file-name>:
-    external: true
-```
+For more information on how to create docker-compose.yaml files for your services follow this Github [repository](https://github.com/NCAR/sage-siparcs-docker-compose).
 
 ### Properties File
 
